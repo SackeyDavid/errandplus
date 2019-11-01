@@ -1,0 +1,79 @@
+<ion-header translucent no-border>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Type Fried Rice"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-button (click)="toggleInfiniteScroll()" expand="block">
+    Toggle Infinite Scroll
+  </ion-button> -->
+ 
+  <ion-list>
+    <ion-item *ngFor="let item of dataList" (click)="onGoToChatsSinglePage()">
+      <ion-avatar slot="start">
+          <ion-img src="/assets/images/{{item.photo}}"></ion-img>
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item.name}}</h2>
+          <p>{{item.created}}</p>
+        </ion-label>
+    </ion-item>
+  </ion-list>
+ 
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="onGoToAddSinglePage()">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+</ion-content>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-header>
+  <ion-toolbar>
+    
+  </ion-toolbar>
+</ion-header> -->
+
+
+ 
+
+<!-- <ion-footer-bar class="bar-dark">
+<h1 class="title">Updated {{currencies[0].ticker.timestamp |
+date:'mediumTime'}}</h1>
+</ion-footer-bar> -->
+
+
+<!-- <ion-content>
+  <ion-card> -->
+    <!-- <ion-img src="/assets/vlcsnap-2019-04-20-09h46m30s119.png"></ion-img> -->
+  
+    <!-- <ion-card-content>
+      <ion-card-title>Tabitha 0.0.1</ion-card-title>
+    
+      
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content> -->

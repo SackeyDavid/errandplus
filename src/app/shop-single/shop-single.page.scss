@@ -1,0 +1,35 @@
+.bgimg {
+    --background: url('/assets/images/hotel-2.jpg') no-repeat fixed center; 
+ }
+
+ .badge {
+    border: 1px solid lightblue;
+    border-radius: 50%;
+    padding: 5%;
+    color: black;
+    font-size: 10px;
+    margin: 0;
+    // background-color: cyan;
+    float: right;
+ }
+
+ .gorcery-card {
+    margin: 0%;
+    padding-top: 0px; 
+    display: inline;
+    padding-bottom: 0px;
+    font-size: 6px; 
+    line-height: 0;
+ }
+
+ ion-card {
+     font-size: 10px;
+ }
+
+ ion-badge {
+     color: #fff;
+     position: absolute;
+     top: 0px;
+     right: 0px;
+     border-radius: 100%;
+ }

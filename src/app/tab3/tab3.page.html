@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar transclucent>
+    <ion-buttons slot="secondary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+      <!-- <ion-segment (ionChange)="segmentChanged($event)" value="javascript">
+          <ion-segment-button value="python">
+            <ion-label>Python</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="javascript">
+            <ion-label>Javascript</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Recommended">
+              <ion-label>listed</ion-label>
+            </ion-segment-button>
+        </ion-segment> -->
+    <ion-segment [(ngModel)] = "discover">
+        <ion-segment-button value="nearby" checked>
+          <ion-label>close</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Popular">
+            <ion-label>trend</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="Recommended">
+              <ion-label>listed</ion-label>
+            </ion-segment-button>
+      </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">
+  <div [ngSwitch] = "discover">
+    <ion-list *ngSwitchCase = " 'nearby'">
+        <ion-item (click)="onGoToShopSinglePage()">
+            <ion-avatar slot="start">
+                <!-- <img src="/src/assets/images/hotel-6.jpg"> -->
+                <ion-img src="/assets/images/hotel-2.jpg"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Night Market</h2>
+                <p><ion-icon name="thumbs-up"></ion-icon> 423 <ion-text color="success">open</ion-text></p>
+              </ion-label>
+          </ion-item>
+    </ion-list>
+
+      <ion-list *ngSwitchCase = " 'Popular'">
+        <ion-item>
+            <ion-avatar slot="start">
+                <ion-img src="/assets/images/hotel-2.jpg"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Night Market</h2>
+                <p><ion-icon name="thumbs-up"></ion-icon> 423 <ion-text color="success">open</ion-text></p>
+              </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-avatar slot="start">
+                <!-- <img src="/src/assets/images/hotel-2.jpg"> -->
+                <ion-img src="/assets/images/hotel-6.jpg"></ion-img>
+              </ion-avatar>
+              <ion-label>
+                <h2>Bush Canteen</h2>
+                <p><ion-icon name="thumbs-up"></ion-icon> 523 <ion-text color="danger"> closed</ion-text></p>
+              </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngSwitchCase = " 'Recommended'">
+          <ion-item>
+              <ion-avatar slot="start">
+                  <ion-img src="/assets/images/hotel-8.jpg"></ion-img>
+                </ion-avatar>
+                <ion-label>
+                  <h2>Fashion </h2>
+                  <p><ion-icon name="thumbs-up"></ion-icon> 123 <ion-text color="danger"> closed</ion-text></p>
+                </ion-label>
+          </ion-item>
+        </ion-list>
+    </div>
+  <!-- <ion-list>
+      <ion-list-header>Follow us on Twitter</ion-list-header>
+      <ion-item>
+        <ion-icon name="logo-ionic" slot="start"></ion-icon>
+        @kofiahendev
+      </ion-item>
+  </ion-list> -->
+</ion-content>

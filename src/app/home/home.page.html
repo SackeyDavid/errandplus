@@ -1,0 +1,212 @@
+<ion-content style="padding-top: 10%">
+  <div #map [hidden] = "typing" style="min-height: 50%;max-height: 60%;padding-bottom: 0;padding-top: 10%">
+      <ion-fab vertical="top" horizontal="start" slot="fixed" [hidden] = "destination" style="margin-top: 6%;">
+          <ion-fab-button color="light" style="margin: 8px;width: 40px;height: 40px;line-height: 40px;">
+          <ion-icon name="menu"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+        <ion-fab vertical="top" horizontal="end" slot="fixed"  [hidden] = "destination" style="margin-top: 6%;">
+            <ion-fab-button color="light" style="margin: 8px;width: 40px;height: 40px;line-height: 40px;">
+            <ion-icon name="gift"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+
+        <ion-button class="ion-margin-top" style="margin-top: 6%" (click)="back()" color="dark" fill="clear" size="small" [hidden]="!destination">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+
+      
+    
+
+
+  </div>
+
+
+  <div class="destination" [hidden] = "!typing" style="background-color: white;width: 100%;padding-top: 10%">
+    
+      <ion-grid class="ion-no-margin ion-no-padding" style="margin-bottom: 0%;">
+        <ion-row>
+          <ion-col size="4" class="ion-text-left">
+            <ion-button (click)="back()" color="dark" fill="clear" size="small" [hidden]="destination">
+              <ion-icon slot="icon-only" size="large" name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="4" class="ion-text-center"><b>Shop from</b></ion-col>
+          <ion-col size="4"></ion-col>
+        </ion-row>
+      </ion-grid>
+
+       <ion-card class="ion-margin-bottom" style="margin-top:0%">
+         <ion-card-content class="ion-no-margin ion-no-padding" style="margin-right:0%">
+            <ion-list class="ion-no-padding  ion-no-margin" style="margin-right:0%">        
+                <ion-item>
+                    
+                    <ion-label size="small" color="primary">
+                       From
+                    </ion-label>
+                    <ion-input color="primary" placeholder="Current location"></ion-input>
+                  </ion-item>
+                  <ion-item lines="none">
+                    <ion-label size="small">
+                         To
+                      </ion-label>
+                      <ion-input style="max-width: 100%;" [(ngModel)]="search" (ionChange)="searchChanged()" [hidden]="destination"  placeholder="search marketplace" autofocus="true"></ion-input>
+                    </ion-item>
+                </ion-list>
+         </ion-card-content>
+       </ion-card> 
+      <!-- <ion-searchbar ></ion-searchbar> -->
+      <ion-list [hidden] = "!search.length" style="background-color: white;margin-bottom: 0%;">
+
+        <ion-item (click)="calcRoute(results)" *ngFor="let results of searchResults" class="no-padding" lines="none" > 
+            <!-- <ion-icon name="basket" class="mini" style="background-color: rgb(224, 17, 121);border-radius: 50%;margin: 12px;padding: 12px;color: white;"></ion-icon> -->
+          <ion-label>
+            <h5 class="margin"> {{reformat1(results.description)}}</h5>
+            <p class="margin"> {{reformat2(results.description)}}</p>
+          </ion-label>
+        </ion-item>
+      
+      </ion-list>
+      <ion-list class="ion-no-padding">        
+          <ion-item lines="none" class="no-padding">
+              <ion-icon name="cart" style="background-color: rgb(60, 58, 211);border-radius: 50%;margin: 12px;padding: 4px;color: white;"></ion-icon>
+              <ion-label>
+                <h2 class="margin"> Favorite shop</h2>
+                <!-- <p class="margin"> Kae Me Bre</p> -->
+              </ion-label>
+            </ion-item>
+          </ion-list>
+    </div>
+
+  <div class="requestShopper ion-text-center" [hidden]="!destination" >
+      <ion-segment scrollable [(ngModel)] = "discover" color="dark">
+          <ion-segment-button value="economy">
+              <ion-label>
+                 <h4 class="ion-no-margin">Economy</h4>
+                <!-- <span>Public transport</span> -->
+              </ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="premium" checked>
+              <ion-label> 
+                <h4 class="ion-no-margin">Premium</h4>
+                <!-- <span>Taxi</span> -->
+              </ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="professional">
+              <ion-label>
+                  <h4 class="ion-no-margin">Professional</h4>
+                  <!-- <span>Private vehicle</span> -->
+              </ion-label>
+          </ion-segment-button>
+          
+        </ion-segment>
+
+        <div class="plans" [ngSwitch] = "discover">
+            <div *ngSwitchCase = " 'economy'">
+                <ion-grid  class="ion-margin-vertical">
+                    <ion-row>
+                      <ion-col size="4" [class.active]="activePlan==plans.shared" (click)="setSelected('shared')">
+                        <img src="https://via.placeholder.com/65/cccccc">
+                        <span class="category">Shared</span>
+                        <span>GHS 15</span>
+                      </ion-col>
+                      <ion-col size="4" [class.active]="activePlan==plans.dedicated" (click)="setSelected('dedicated')">
+                      <img src="https://via.placeholder.com/65/cccccc">
+                      <span class="category">Dedicated</span>
+                      <span>GHS 17</span>
+                    </ion-col>
+                    
+                    </ion-row>
+                  </ion-grid>
+              <hr>
+                  <ion-button color="dark" shape="round" expand="block">
+                    Request shopper
+                  </ion-button>
+                </div>
+
+                <div *ngSwitchCase = " 'premium'">
+                    <ion-grid class="ion-margin-vertical">
+                        <ion-row>
+                            <ion-col size="4" [class.active]="activePlan==plans.shared"    (click)="setSelected('shared')">
+                                <img src="https://via.placeholder.com/65/cccccc">
+                                <span class="category">Shared</span>
+                                <span>GHS 25</span>
+                              </ion-col>
+                              <ion-col size="4" [class.active]="activePlan==plans.dedicated"   (click)="setSelected('dedicated')">
+                              <img src="https://via.placeholder.com/65/cccccc">
+                              <span class="category">Dedicated</span>
+                              <span>GHS 27</span>
+                            </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                  
+                      <ion-button color="dark" shape="round" expand="block">
+                        Request shopper
+                      </ion-button>
+                    </div>
+
+                    <div *ngSwitchCase = " 'professional'">
+                        <ion-grid  class="ion-margin-vertical">
+                            <ion-row>
+                                <ion-col size="4" [class.active]="activePlan==plans.shared"  (click)="setSelected('shared')">
+                                    <img src="https://via.placeholder.com/65/cccccc">
+                                    <span class="category">Shared</span>
+                                    <span>GHS 35</span>
+                                  </ion-col>
+                                  <ion-col size="4" [class.active]="activePlan==plans.dedicated">
+                                  <img src="https://via.placeholder.com/65/cccccc">
+                                  <span class="category"  (click)="setSelected('dedicated')">Dedicated</span>
+                                  <span>GHS 37</span>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="no-padding payment">
+                              <ion-col width-100 class="ion-text-left">
+                                <button block light>
+                                    <span>Add Payment</span>
+                                    <ion-icon name="arrow-dropdown"></ion-icon>
+                                </button>
+                              </ion-col>
+                             
+                             </ion-row>
+                          </ion-grid>
+                      
+                          
+                          <ion-button [hidden]="isPickupRequested" (click)="confirmPickup()" color="dark" shape="round" expand="block">
+                              Request shopper
+                            </ion-button>
+                            <ion-button [hidden]="!isPickupRequested" (click)="cancelPickup()" color="dark" shape="round" expand="block">
+                                Cancel request
+                              </ion-button>
+                        </div>
+          </div>
+    </div>
+
+    <div class="hello-div" [hidden] = "destination" (click)="setTyping()" style="padding-top: 0%;">
+      <div class="bottom" style="max-height: 50%;margin-bottom: 0;padding-top: 0%;background-color: white;" [hidden] = "typing">
+        
+    <span style="margin-left: 2%;padding-bottom: 0;padding-top: 0;margin-top: 0%;">Good evenning, David </span> <br>
+    <b style="margin-left: 2%;padding-top: 0%;padding-bottom: 0%;" class="no-padding" >Where are you shopping from?</b>
+    <ion-searchbar  placeholder="search markets"></ion-searchbar>
+        
+    
+    <ion-list class="ion-no-padding" style="margin-bottom: 0%;">
+      <ion-list-header class="ion-no-margin" style="padding-bottom: 0%;padding-top: 0%;">
+          Nearby
+      </ion-list-header>
+  
+      <ion-item lines="none" class="ion-no-padding">
+          <ion-icon name="cart" style="background-color: rgb(60, 58, 211);border-radius: 50%;margin: 12px;padding: 4px;color: white;"></ion-icon>
+          <ion-label>
+            <h2 class="margin"> Melcome Kasoa</h2>
+            <p class="margin"> Kae Me Bre</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+  
+      
+        
+    </div>
+  </div>
+</ion-content>
+
+

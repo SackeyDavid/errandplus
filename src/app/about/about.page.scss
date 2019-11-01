@@ -1,0 +1,14 @@
+ .images {
+    display: flex;
+    flex-wrap: wrap; 
+}
+
+.image {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.main-image, .user-image {
+    width: 200px;
+    height: 200px;
+}
